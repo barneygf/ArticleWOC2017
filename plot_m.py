@@ -162,7 +162,7 @@ for group, frame in data_lit:
     ax2.plot(x_regr2, y_regr2, color=colors_lit[group], linestyle='--')
 
 plt.tight_layout()
-plt.savefig(filename=c_prof + '-' + c_lab + '_m.png')
+plt.savefig(fname=c_prof + '-' + c_lab + '_m.png')
 plt.show()
 
 # writer = pd.ExcelWriter('output.xlsx')

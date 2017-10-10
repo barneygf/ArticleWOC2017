@@ -34,7 +34,7 @@ for i in range(len(data)):
         print('')
     data2[variables[i]] = temp
 
-print(data2)
+print(data2[variables[c_lab]])
 
 def cm2inch(*centy):  # Converting centimeters to inches
     inch = 2.54
@@ -52,15 +52,16 @@ f, (ax1, ax2) = plt.subplots(1, 2, sharey=True, figsize=cm2inch(fig_size_x, fig_
 point_size = 60
 for i in range(len(data2[variables[0]])):
     if data2[variables[c_prof]][i] != -999.25 and data2[variables[c_lab]][i] != -999.25:
-        if data2[variables[0]][i] == 'L-1':
+        print(data2[variables[0]][i])
+        if data2[variables[0]][i] == 'A-1':
             ax1.scatter(data2[variables[c_prof]][i], data2[variables[c_lab]][i], c='r', label='A-1', s=point_size)
-        elif data2[variables[0]][i] == 'L-2':
+        elif data2[variables[0]][i] == 'A-2':
             ax1.scatter(data2[variables[c_prof]][i], data2[variables[c_lab]][i], c='dodgerblue', label='A-2',
                        s=point_size, marker='^')
-        elif data2[variables[0]][i] == 'L-3':
+        elif data2[variables[0]][i] == 'A-3':
             ax1.scatter(data2[variables[c_prof]][i], data2[variables[c_lab]][i], c='g', label='A-3', s=point_size,
                        marker='+')
-        elif data2[variables[0]][i] == 'L-4':
+        elif data2[variables[0]][i] == 'A-4':
             ax1.scatter(data2[variables[c_prof]][i], data2[variables[c_lab]][i], c='k', label='A-4', s=point_size,
                        marker='x')
 
@@ -76,7 +77,7 @@ if filename == 'Cross_U.csv':
                 print(data3[-1], data4[-1])
 else:
     for i in range(len(data2[variables[0]])):
-        print(i)
+        #print(i)
         if data2[variables[c_prof]][i] != -999.25 and data2[variables[c_lab]][i] != -999.25:
             data3.append(data2[variables[c_prof]][i])
             data4.append(data2[variables[c_lab]][i])
@@ -97,7 +98,7 @@ y_regr = slope * x_regr + intercept
 #y_regr = 1074.6 * x_regr ** (-1.17)
 
 
-R2_text = r'y = 0.83x + 1.06''\n'r'$R^2 = $' + str('%.3f' % r_value**2)
+R2_text = r'y = 0.83x + 1.06''\n'r'$R^2 = $' + str('%.2f' % r_value**2)
 #R2_text = r'$P_p = 1074.6p^{-1.17}$''\n'r'$R^2 = 0.69$''\n'r'$m = 1.17$'
 ax1.plot(x_regr, y_regr, 'm--')
 if x_axis_type == 'linear' and y_axis_type == 'linear':
@@ -116,8 +117,10 @@ handles, labels = ax1.get_legend_handles_labels()
 by_label = OrderedDict(zip(labels, handles))
 ax1.legend(by_label.values(), by_label.keys(), scatterpoints=1, loc=2, fancybox=True, shadow=True, ncol=2,
           fontsize=size_font)
-ax1.set_xlabel(variables[c_prof] + ' [' + units[c_prof] + ']', fontsize=size_font)
-ax1.set_ylabel(variables[c_lab] + ' Lab [' + units[c_lab] + ']', fontsize=size_font)
+# ax1.set_xlabel(variables[c_prof] + ' [' + units[c_prof] + ']', fontsize=size_font)
+ax1.set_xlabel('Total porosity from helium pycnometry [%]', fontsize=size_font)
+# ax1.set_ylabel(variables[c_lab] + ' Lab [' + units[c_lab] + ']', fontsize=size_font)
+ax1.set_ylabel('Total porosity factor from NMR [%]', fontsize=size_font)
 ax1.set_xscale(x_axis_type)
 ax1.set_yscale(y_axis_type)
 ax1.set_axisbelow(True)
@@ -166,7 +169,8 @@ handles, labels = ax2.get_legend_handles_labels()
 by_label = OrderedDict(zip(labels, handles))
 ax2.legend(by_label.values(), by_label.keys(), scatterpoints=1, loc=2, fancybox=True, shadow=True, ncol=3,
           fontsize=size_font)
-ax2.set_xlabel(variables[c_prof] + ' [' + units[c_prof] + ']', fontsize=size_font)
+# ax2.set_xlabel(variables[c_prof] + ' [' + units[c_prof] + ']', fontsize=size_font)
+ax2.set_xlabel('Total porosity from helium pycnometry [%]', fontsize=size_font)
 #plt.ylabel(variables[c_lab] + ' Lab [' + units[c_lab] + ']', fontsize=size_font)
 ax2.set_xscale(x_axis_type)
 ax2.set_yscale(y_axis_type)
@@ -178,5 +182,6 @@ ax2.set_ylim(-0.5, 22)
 #ax2.set_xlim(1, 100)
 #ax2.set_ylim(10, 10000)
 #plt.savefig(filename=variables[c_prof] + '-' + variables[c_lab] + '_Lit.png')
-plt.savefig(filename=variables[c_prof] + '-' + variables[c_lab] + '_razem.png')
+output_fname = variables[c_prof] + '-' + variables[c_lab] + '_razem.png'
+plt.savefig(fname=output_fname)
 plt.show()
